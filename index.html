@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dla Klaudii ♥</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#1c1124;--bg2:#2a1836;--ink:#fbeff4;--mute:#c9b3cf;--rose:#ff6f9a;--lilac:#b7a1ff;--gold:#ffd6a5;--ok:#7ee0a8;--bad:#ff7a7a;--cell:clamp(24px,7.2vw,38px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#4a2253 0,transparent 60%),var(--bg);color:var(--ink);font:400 17px/1.6 Nunito,system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;margin:0}
+main{max-width:760px;margin:0 auto;padding:0 20px 80px}
+section{padding:56px 0 8px}
+h2{font-size:clamp(26px,6vw,36px);font-style:italic;margin-bottom:8px}
+p.lead{color:var(--mute);margin:0 0 24px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* hero */
+.hero{padding-top:64px;text-align:left}
+.live{display:inline-flex;align-items:center;gap:8px;background:#ff3b5c;color:#fff;font-weight:800;font-size:14px;padding:5px 12px;border-radius:6px}
+.live i{width:9px;height:9px;border-radius:50%;background:#fff;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.hero h1{font-size:clamp(44px,13vw,92px);margin:18px 0 6px;font-style:italic;letter-spacing:-.02em}
+.hero h1 span{color:var(--rose)}
+.hero .sub{color:var(--mute);margin:0 0 28px;max-width:34ch}
+.clock{display:flex;gap:10px;flex-wrap:wrap}
+.clock div{background:var(--bg2);border:1px solid #4b2d5c;border-radius:14px;padding:12px 16px;min-width:76px;text-align:center}
+.clock b{display:block;font:600 32px Fraunces,serif;color:var(--gold)}
+.clock small{color:var(--mute);font-size:13px}
+
+/* story */
+.facts{list-style:none;padding:0;margin:0;border-left:2px solid #4b2d5c}
+.facts li{padding:0 0 22px 22px;position:relative}
+.facts li::before{content:"";position:absolute;left:-7px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--rose)}
+.facts strong{font-family:Fraunces,serif;font-size:20px;display:block}
+.facts span{color:var(--mute)}
+
+/* generic card + buttons */
+.card{background:var(--bg2);border:1px solid #4b2d5c;border-radius:18px;padding:20px}
+button{font:800 15px Nunito,sans-serif;border:0;border-radius:10px;padding:10px 16px;cursor:pointer;background:var(--rose);color:#2a0f1a}
+button.ghost{background:transparent;color:var(--ink);border:1px solid #6b4a7d}
+button:active{transform:scale(.97)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.msg{margin-top:14px;font-family:Fraunces,serif;font-style:italic;font-size:19px;color:var(--gold);min-height:1.4em}
+
+/* crossword */
+.cw-wrap{overflow-x:auto;padding-bottom:6px}
+#grid{display:grid;width:max-content;gap:3px;margin:0 auto}
+.c{width:var(--cell);height:var(--cell);position:relative}
+.c input{width:100%;height:100%;border:0;border-radius:6px;background:#fff;color:#2a1836;text-align:center;font:800 calc(var(--cell)*.55) Nunito,sans-serif;text-transform:uppercase;padding:0;caret-color:var(--rose)}
+.c input:focus{background:#ffe3ec}
+.c.ok input{background:#c9f5dc}.c.bad input{background:#ffd0d0}
+.c.key input{box-shadow:0 0 0 3px var(--gold)}
+.c .k{position:absolute;right:-3px;bottom:-5px;width:16px;height:16px;border-radius:50%;background:var(--gold);color:#3a1a2a;font:800 11px/16px Nunito;text-align:center;pointer-events:none}
+.pw{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:18px;flex-wrap:wrap}
+.pw span{width:42px;height:48px;border-bottom:3px solid var(--gold);text-align:center;font:600 30px/48px Fraunces,serif;color:var(--ink);position:relative}
+.pw span small{position:absolute;left:2px;top:-2px;font:800 11px Nunito;color:var(--gold);line-height:1}
+.pw em{color:var(--mute);font-size:14px;flex-basis:100%;text-align:center}
+.c sup{position:absolute;left:2px;top:0;font:800 10px Nunito;color:#a0345c;pointer-events:none}
+.clues{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:20px}
+.clues h3{font-size:18px;margin-bottom:6px;color:var(--lilac)}
+.clues ol{list-style:none;margin:0;padding:0}
+.clues li{padding:6px 0;cursor:pointer;color:var(--mute)}
+.clues li b{color:var(--gold);margin-right:6px}
+.clues li:hover{color:var(--ink)}
+
+/* scramble */
+.sc{display:grid;gap:14px}
+.sc .item{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sc .lt{font:800 22px Nunito;letter-spacing:.18em;color:var(--lilac);min-width:9ch}
+.sc input{flex:1;min-width:120px;border-radius:10px;border:1px solid #6b4a7d;background:#150b1c;color:var(--ink);padding:10px 12px;font:700 16px Nunito;text-transform:uppercase}
+.sc .res{flex-basis:100%;color:var(--gold);font-family:Fraunces,serif;font-style:italic}
+
+/* quiz */
+.q{margin-bottom:22px}
+.q h3{font-size:20px;margin-bottom:10px}
+.opts{display:grid;gap:8px}
+.opts button{background:#150b1c;color:var(--ink);border:1px solid #6b4a7d;text-align:left;font-weight:600}
+.opts button.right{background:#1f5a3c;border-color:var(--ok)}
+.opts button.wrong{background:#5a1f2c;border-color:var(--bad)}
+.q .ans{min-height:1.4em;margin-top:8px;color:var(--gold);font-style:italic;font-family:Fraunces,serif}
+
+/* letter */
+.env{text-align:center}
+.letter{display:none;text-align:left;margin-top:18px;font:italic 400 20px/1.7 Fraunces,serif}
+.letter.open{display:block;animation:fade .8s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+footer{text-align:center;color:var(--mute);padding:40px 0 0}
+.heart{position:fixed;bottom:-30px;pointer-events:none;animation:up 3s ease-out forwards;font-size:22px}
+@keyframes up{to{transform:translateY(-70vh);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <span class="live"><i></i>LIVE od 29.08.2025</span>
+  <h1>Klaudia <span>&amp;</span> Kacper</h1>
+  <p class="sub">Wszystko zaczęło się od jednego live’a. Ta strona jest tylko dla Ciebie.</p>
+  <div class="clock" id="clock" aria-live="off"></div>
+</header>
+
+<section>
+  <h2>Nasza historia</h2>
+  <p class="lead">Najważniejsze rzeczy, które o nas wiem na pewno.</p>
+  <ul class="facts">
+    <li><strong>TikTok, live z Valoranta</strong><span>Tam Cię znalazłem. Najlepsze trafienie w całej mojej historii grania.</span></li>
+    <li><strong>29 sierpnia 2025</strong><span>Dzień, od którego jesteśmy razem. Licznik na górze już tego pilnuje.</span></li>
+    <li><strong>Fado i Hardin</strong><span>Mój pies i Twój pies. Dwa najważniejsze psie charaktery w tej opowieści, zaraz po nas.</span></li>
+  </ul>
+</section>
+
+<section id="cross">
+  <h2>Krzyżówka dla Klaudii</h2>
+  <p class="lead">Wszystkie hasła znasz. Wpisuj bez polskich znaków. Kliknij hasło, żeby od niego zacząć. Złote pola z numerkami 1–4 układają się w ukryte hasło.</p>
+  <div class="card">
+    <div class="cw-wrap"><div id="grid"></div></div>
+    <div class="pw" id="pw"></div>
+    <div class="clues"><div><h3>Poziomo</h3><ol id="ca"></ol></div><div><h3>Pionowo</h3><ol id="cd"></ol></div></div>
+    <div class="row"><button id="chk">Sprawdź</button><button class="ghost" id="rev">Pokaż odpowiedzi</button><button class="ghost" id="clr">Wyczyść</button></div>
+    <div class="msg" id="cmsg"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Poukładaj litery</h2>
+  <p class="lead">Cztery słowa wymieszane w głowie. Rozwiązanie zawsze jest słodkie.</p>
+  <div class="card sc" id="sc"></div>
+</section>
+
+<section>
+  <h2>Quiz o nas</h2>
+  <p class="lead">Nie ma złych odpowiedzi. No dobra, są, ale i tak Cię kocham.</p>
+  <div class="card" id="quiz"></div>
+</section>
+
+<section class="env">
+  <h2>Na koniec</h2>
+  <p class="lead">Coś małego, napisanego tylko dla Ciebie.</p>
+  <div class="card">
+    <button id="open">Otwórz list</button>
+    <div class="letter" id="letter">
+      Klaudia,<br><br>
+      dziękuję, że ktoś w ogóle włączył tego live’a z Valorantem i że akurat wtedy trafiłem na Twój stream.
+      Od 29 sierpnia 2025 każdy dzień jest o tyle lepszy, że mam do kogo pisać, z kim się śmiać i o kim myśleć.<br><br>
+      Kocham Cię, Twój Kacper. Fado i Hardin niech merdają ogonami z aprobatą. 💗
+    </div>
+  </div>
+</section>
+
+<footer>Zrobione z miłością dla Klaudii ♥ Kacper</footer>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+
+/* hearts */
+function hearts(n=8){for(let i=0;i<n;i++){const h=document.createElement('div');h.className='heart';h.textContent=['💗','💕','💖'][i%3];h.style.left=(10+Math.random()*80)+'vw';h.style.animationDelay=(Math.random()*.6)+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),3800)}}
+
+/* clock since 29.08.2025 */
+const START=new Date(2025,7,29,0,0,0);
+function tick(){
+  let d=Math.max(0,Date.now()-START),s=Math.floor(d/1000);
+  const days=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),sec=s%60;
+  $('#clock').innerHTML=[[days,'dni'],[h,'godzin'],[m,'minut'],[sec,'sekund']].map(([v,l])=>`<div><b>${v}</b><small>${l}</small></div>`).join('');
+}
+tick();setInterval(tick,1000);
+
+/* crossword */
+const W=[
+ {n:1,d:'d',x:8,y:0,a:'KACPER',c:'Ten, który zrobił dla Ciebie tę stronę.'},
+ {n:2,d:'a',x:0,y:3,a:'TIKTOK',c:'Tu wszystko się zaczęło.'},
+ {n:3,d:'d',x:5,y:3,a:'KLAUDIA',c:'Najważniejsza osoba na tej stronie. Czyli Ty.'},
+ {n:4,d:'a',x:4,y:5,a:'VALORANT',c:'Gra, którą streamowałaś, kiedy Cię znalazłem.'},
+ {n:5,d:'d',x:3,y:6,a:'FADO',c:'Mój pies, wielki fan Twoich głasków.'},
+ {n:6,d:'a',x:2,y:7,a:'HARDIN',c:'Twój pies, najlepszy kolega Fado.'}
+];
+const cells={};let cur=null;
+W.forEach(w=>{for(let i=0;i<w.a.length;i++){const x=w.x+(w.d==='a'?i:0),y=w.y+(w.d==='d'?i:0),k=x+','+y;(cells[k]=cells[k]||{x,y,ch:w.a[i],num:null,ws:{}}).ws[w.d]=[w,i]}});
+W.forEach(w=>cells[w.x+','+w.y].num=w.n);
+const g=$('#grid'),cols=12,rows=10;g.style.gridTemplateColumns=`repeat(${cols},var(--cell))`;
+for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+  const c=cells[x+','+y],el=document.createElement('div');el.className='c';
+  if(c){el.innerHTML=(c.num?`<sup>${c.num}</sup>`:'')+'<input maxlength="1" autocomplete="off" autocapitalize="characters" aria-label="Komórka krzyżówki">';c.el=el;c.inp=el.firstChild.nextSibling||el.querySelector('input');c.inp=el.querySelector('input')}
+  g.appendChild(el);
+}
+const list=Object.values(cells);
+const KEY=[[5,4],[4,3],[4,5],[8,4]],SECRET='LOVE';
+KEY.forEach(([x,y],i)=>{const c=cells[x+','+y];c.el.classList.add('key');c.el.insertAdjacentHTML('beforeend','<i class="k">'+(i+1)+'</i>')});
+function updatePw(){
+  const v=KEY.map(([x,y])=>cells[x+','+y].inp.value||'');
+  $('#pw').innerHTML=v.map((ch,i)=>`<span><small>${i+1}</small>${ch}</span>`).join('')+'<em>Ukryte hasło</em>';
+  if(v.join('')===SECRET){$('#pw em').textContent='Hasło: LOVE. Czyli dokładnie to, co do Ciebie czuję. 💗'}
+}
+updatePw();
+$('#grid').addEventListener('input',updatePw);
+function wordCells(w){return Array.from(w.a,(_,i)=>cells[(w.x+(w.d==='a'?i:0))+','+(w.y+(w.d==='d'?i:0))])}
+list.forEach(c=>{
+  c.inp.addEventListener('focus',()=>{ // choose direction: keep current if cell belongs to it
+    if(!(cur&&c.ws[cur.d]&&c.ws[cur.d][0]===cur)){cur=(c.ws.a||c.ws.d)[0];}
+  });
+  c.inp.addEventListener('click',()=>{ // second click toggles direction at crossings
+    if(c.ws.a&&c.ws.d&&document.activeElement===c.inp&&c._last===cur){cur=c.ws[cur.d==='a'?'d':'a'][0]}
+    c._last=cur;
+  });
+  c.inp.addEventListener('input',e=>{
+    c.inp.value=c.inp.value.slice(-1).toUpperCase().replace(/[^A-Z]/g,'');
+    c.el.classList.remove('ok','bad');
+    if(c.inp.value&&cur){const wc=wordCells(cur),i=wc.indexOf(c);if(wc[i+1])wc[i+1].inp.focus()}
+  });
+  c.inp.addEventListener('keydown',e=>{
+    if(e.key==='Backspace'&&!c.inp.value&&cur){const wc=wordCells(cur),i=wc.indexOf(c);if(wc[i-1]){wc[i-1].inp.focus();wc[i-1].inp.value=''}}
+    const mv={ArrowRight:[1,0],ArrowLeft:[-1,0],ArrowDown:[0,1],ArrowUp:[0,-1]}[e.key];
+    if(mv){const n=cells[(c.x+mv[0])+','+(c.y+mv[1])];if(n){e.preventDefault();n.inp.focus()}}
+  });
+});
+W.forEach(w=>{
+  const li=document.createElement('li');li.innerHTML=`<b>${w.n}.</b>${w.c} (${w.a.length})`;
+  li.onclick=()=>{cur=w;wordCells(w)[0].inp.focus();cur=w};
+  $(w.d==='a'?'#ca':'#cd').appendChild(li);
+});
+function check(){
+  let all=true,any=false;
+  list.forEach(c=>{c.el.classList.remove('ok','bad');const v=c.inp.value;if(!v){all=false;return}any=true;
+    if(v===c.ch)c.el.classList.add('ok');else{c.el.classList.add('bad');all=false}});
+  const m=$('#cmsg');
+  if(all){m.textContent='Wszystko się zgadza. Hasło to LOVE, a ekipa to Kacper, Klaudia, Fado i Hardin. 💗';hearts(14)}
+  else m.textContent=any?'Zielone pola są dobre, czerwone do poprawki. Dasz radę!':'Wpisz kilka liter i sprawdź.';
+}
+$('#chk').onclick=check;
+$('#rev').onclick=()=>{list.forEach(c=>{c.inp.value=c.ch;c.el.classList.remove('bad');c.el.classList.add('ok')});updatePw();$('#cmsg').textContent='Odpowiedzi: KACPER, TIKTOK, KLAUDIA, VALORANT, FADO, HARDIN.'};
+$('#clr').onclick=()=>{list.forEach(c=>{c.inp.value='';c.el.classList.remove('ok','bad')});updatePw();$('#cmsg').textContent=''};
+
+/* scramble */
+const S=[
+ ['KOCHAM','MAKOHC','Powiem to jeszcze tysiąc razy. 💗'],
+ ['BUZIAK','ZKUABI','Jeden od Fado, reszta ode mnie.'],
+ ['RAZEM','ZMERA','Najlepsze słowo na świecie.'],
+ ['PRZYTUL','LUTYRZP','Poproszę. Długo. Bez limitu czasu.']
+];
+$('#sc').innerHTML=S.map((s,i)=>`<div class="item"><span class="lt">${s[1]}</span><input data-i="${i}" placeholder="Twoja odpowiedź" aria-label="Odpowiedź ${i+1}" autocomplete="off"><div class="res" id="r${i}"></div></div>`).join('');
+document.querySelectorAll('#sc input').forEach(inp=>inp.addEventListener('input',()=>{
+  const i=+inp.dataset.i,v=inp.value.trim().toUpperCase(),r=$('#r'+i);
+  if(v===S[i][0]){r.textContent='✓ '+S[i][2];inp.style.borderColor='var(--ok)';hearts(5)}
+  else{r.textContent='';inp.style.borderColor=''}
+}));
+
+/* quiz */
+const Q=[
+ ['Gdzie się poznaliśmy?',['Instagram','TikTok','Na uczelni'],1,'TikTok. Najlepszy algorytm w historii.'],
+ ['Od kiedy jesteśmy razem?',['29.08.2025','15.09.2025','01.08.2025'],0,'Dokładnie. Ten dzień mam wyryty w pamięci.'],
+ ['Co robiłaś na live’ie, kiedy się poznaliśmy?',['Gotowałaś','Grałaś w Valoranta','Śpiewałaś'],1,'Valorant. I od razu wygrałaś mnie.'],
+ ['Jak ma na imię mój pies?',['Fado','Fido','Fabio'],0,'Fado! Czeka, aż go w końcu przytulisz.']
+];
+$('#quiz').innerHTML=Q.map((q,i)=>`<div class="q"><h3>${q[0]}</h3><div class="opts">${q[1].map((o,j)=>`<button data-q="${i}" data-o="${j}">${o}</button>`).join('')}</div><div class="ans" id="a${i}"></div></div>`).join('');
+document.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.q,j=+b.dataset.o,ok=j===Q[i][2];
+  b.classList.add(ok?'right':'wrong');
+  $('#a'+i).textContent=ok?Q[i][3]:'Prawie! Spróbuj jeszcze raz.';
+  if(ok){hearts(4);b.parentNode.querySelectorAll('button').forEach(x=>x.disabled=true)}
+});
+
+/* letter */
+$('#open').onclick=()=>{$('#letter').classList.add('open');$('#open').style.display='none';hearts(16)};
+</script>
+</body>
+</html>
