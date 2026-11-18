@@ -74,29 +74,14 @@ button:active{transform:scale(.97)}
 .sc input{flex:1;min-width:120px;border-radius:10px;border:1px solid #6b4a7d;background:#150b1c;color:var(--ink);padding:10px 12px;font:700 16px Nunito;text-transform:uppercase}
 .sc .res{flex-basis:100%;color:var(--gold);font-family:Fraunces,serif;font-style:italic}
 
-/* quiz (quiz.json) */
-const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-(async()=>{
-  const box=$('#quiz');let data;
-  try{const res=await fetch('quiz.json',{cache:'no-cache'});if(!res.ok)throw 0;data=await res.json()}
-  catch(e){box.innerHTML='<p class="lead">Quiz się nie wczytał. Strona musi działać przez GitHub Pages albo lokalny serwer (np. <code>python -m http.server</code>), bo przeglądarka blokuje czytanie quiz.json z pliku.</p>';return}
-  const Q=data.questions||[];let i=0,score=0,scored=0;
-  function show(){
-    if(i>=Q.length){
-      box.innerHTML=`<h3 class="qq">${esc(data.finish_title||'Koniec!')}</h3><p class="lead">${scored?`Poprawne odpowiedzi: <b>${score}/${scored}</b>. `:''}${esc(data.finish_text||'')}</p><div class="row"><button id="again">Jeszcze raz</button></div>`;
-      $('#again').onclick=()=>{i=0;score=0;scored=0;show()};hearts(14);return}
-    const q=Q[i],graded=typeof q.answer==='number';let tried=false;
-    box.innerHTML=`<div class="prog">Pytanie ${i+1} z ${Q.length}</div><h3 class="qq">${esc(q.q)}</h3><div class="opts">${q.options.map((o,j)=>`<button data-o="${j}">${esc(o)}</button>`).join('')}</div><div class="ans" id="qa"></div><div class="row"><button id="nx" style="display:none">${i+1===Q.length?'Zobacz wynik':'Dalej'}</button></div>`;
-    const btns=[...box.querySelectorAll('.opts button')],ans=$('#qa');
-    $('#nx').onclick=()=>{i++;show()};
-    btns.forEach((b,j)=>b.onclick=()=>{
-      if(!graded){b.classList.add('right');ans.textContent=(q.replies&&q.replies[j])||'';btns.forEach(x=>x.disabled=true);$('#nx').style.display='';hearts(3);return}
-      if(j===q.answer){b.classList.add('right');if(!tried){score++}scored++;ans.textContent=q.correct||'Dokładnie!';btns.forEach(x=>x.disabled=true);$('#nx').style.display='';hearts(4)}
-      else{b.classList.add('wrong');b.disabled=true;tried=true;ans.textContent=q.wrong||'Prawie! Spróbuj jeszcze raz.'}
-    });
-  }
-  show();
-})();
+/* quiz */
+.q{margin-bottom:22px}
+.q h3{font-size:20px;margin-bottom:10px}
+.opts{display:grid;gap:8px}
+.opts button{background:#150b1c;color:var(--ink);border:1px solid #6b4a7d;text-align:left;font-weight:600}
+.opts button.right{background:#1f5a3c;border-color:var(--ok)}
+.opts button.wrong{background:#5a1f2c;border-color:var(--bad)}
+.q .ans,.ans{min-height:1.4em;margin-top:8px;color:var(--gold);font-style:italic;font-family:Fraunces,serif}
 
 /* letter */
 .env{text-align:center}
@@ -148,13 +133,13 @@ footer{text-align:center;color:var(--mute);padding:40px 0 0}
 
 <section>
   <h2>Poukładaj litery</h2>
-  <p class="lead">Cztery słowa wymieszane w głowie. Rozwiązanie zawsze jest słodkie.</p>
+  <p class="lead">Cztery słowa wymieszane w głowie. Rozwiązanie zawsze jest urocze jak Ty.</p>
   <div class="card sc" id="sc"></div>
 </section>
 
 <section>
   <h2>Quiz o nas</h2>
-  <p class="lead">Nie ma złych odpowiedzi. No dobra, są, ale i tak Cię kocham.</p>
+  <p class="lead">Nie ma złych odpowiedzi. No dobra, są, ale i tak Cię kocham :3.</p>
   <div class="card" id="quiz"></div>
 </section>
 
@@ -164,10 +149,15 @@ footer{text-align:center;color:var(--mute);padding:40px 0 0}
   <div class="card">
     <button id="open">Otwórz list</button>
     <div class="letter" id="letter">
-      Klaudia,<br><br>
-      dziękuję, że ktoś w ogóle włączył tego live’a z Valorantem i że akurat wtedy trafiłem na Twój stream.
-      Od 29 sierpnia 2025 każdy dzień jest o tyle lepszy, że mam do kogo pisać, z kim się śmiać i o kim myśleć.<br><br>
-      Kocham Cię, Twój Kacper. Fado i Hardin niech merdają ogonami z aprobatą. 💗
+      Klaudia,
+
+      dziękuję Ci za to, że jesteś. Nie za coś, co zrobiłaś, tylko po prostu za to, że istniejesz i że istniejesz właśnie w moim świecie. <br><br>
+
+      Kocham Cię. Kocham Twój uśmiech, który potrafi naprawić nawet najgorszy dzień. Kocham to, że rozumiesz mnie bez wielu słów. Kocham to, że przy Tobie mogę być sobą, bez udawania i bez tłumaczenia się. I kocham to, że z każdym dniem kocham Cię trochę bardziej, chociaż myślałem, że bardziej się nie da. <br><br>
+
+      Jesteś moim spokojem, moją radością i moim ulubionym miejscem na świecie. <br><br>
+
+      Kocham Cię, Twój ukochan Kacper.  💗
     </div>
   </div>
 </section>
@@ -272,20 +262,29 @@ document.querySelectorAll('#sc input').forEach(inp=>inp.addEventListener('input'
   else{r.textContent='';inp.style.borderColor=''}
 }));
 
-/* quiz */
-const Q=[
- ['Gdzie się poznaliśmy?',['Instagram','TikTok','Na uczelni'],1,'TikTok. Najlepszy algorytm w historii.'],
- ['Od kiedy jesteśmy razem?',['29.08.2025','15.09.2025','01.08.2025'],0,'Dokładnie. Ten dzień mam wyryty w pamięci.'],
- ['Co robiłaś na live’ie, kiedy się poznaliśmy?',['Gotowałaś','Grałaś w Valoranta','Śpiewałaś'],1,'Valorant. I od razu wygrałaś mnie.'],
- ['Jak ma na imię mój pies?',['Fado','Fido','Fabio'],0,'Fado! Czeka, aż go w końcu przytulisz.']
-];
-$('#quiz').innerHTML=Q.map((q,i)=>`<div class="q"><h3>${q[0]}</h3><div class="opts">${q[1].map((o,j)=>`<button data-q="${i}" data-o="${j}">${o}</button>`).join('')}</div><div class="ans" id="a${i}"></div></div>`).join('');
-document.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
-  const i=+b.dataset.q,j=+b.dataset.o,ok=j===Q[i][2];
-  b.classList.add(ok?'right':'wrong');
-  $('#a'+i).textContent=ok?Q[i][3]:'Prawie! Spróbuj jeszcze raz.';
-  if(ok){hearts(4);b.parentNode.querySelectorAll('button').forEach(x=>x.disabled=true)}
-});
+/* quiz (quiz.json) */
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+(async()=>{
+  const box=$('#quiz');let data;
+  try{const res=await fetch('quiz.json',{cache:'no-cache'});if(!res.ok)throw 0;data=await res.json()}
+  catch(e){box.innerHTML='<p class="lead">Quiz się nie wczytał. Strona musi działać przez GitHub Pages albo lokalny serwer (np. <code>python -m http.server</code>), bo przeglądarka blokuje czytanie quiz.json z pliku.</p>';return}
+  const Q=data.questions||[];let i=0,score=0,scored=0;
+  function show(){
+    if(i>=Q.length){
+      box.innerHTML=`<h3 class="qq">${esc(data.finish_title||'Koniec!')}</h3><p class="lead">${scored?`Poprawne odpowiedzi: <b>${score}/${scored}</b>. `:''}${esc(data.finish_text||'')}</p><div class="row"><button id="again">Jeszcze raz</button></div>`;
+      $('#again').onclick=()=>{i=0;score=0;scored=0;show()};hearts(14);return}
+    const q=Q[i],graded=typeof q.answer==='number';let tried=false;
+    box.innerHTML=`<div class="prog">Pytanie ${i+1} z ${Q.length}</div><h3 class="qq">${esc(q.q)}</h3><div class="opts">${q.options.map((o,j)=>`<button data-o="${j}">${esc(o)}</button>`).join('')}</div><div class="ans" id="qa"></div><div class="row"><button id="nx" style="display:none">${i+1===Q.length?'Zobacz wynik':'Dalej'}</button></div>`;
+    const btns=[...box.querySelectorAll('.opts button')],ans=$('#qa');
+    $('#nx').onclick=()=>{i++;show()};
+    btns.forEach((b,j)=>b.onclick=()=>{
+      if(!graded){b.classList.add('right');ans.textContent=(q.replies&&q.replies[j])||'';btns.forEach(x=>x.disabled=true);$('#nx').style.display='';hearts(3);return}
+      if(j===q.answer){b.classList.add('right');if(!tried){score++}scored++;ans.textContent=q.correct||'Dokładnie!';btns.forEach(x=>x.disabled=true);$('#nx').style.display='';hearts(4)}
+      else{b.classList.add('wrong');b.disabled=true;tried=true;ans.textContent=q.wrong||'Prawie! Spróbuj jeszcze raz.'}
+    });
+  }
+  show();
+})();
 
 /* letter */
 $('#open').onclick=()=>{$('#letter').classList.add('open');$('#open').style.display='none';hearts(16)};
