@@ -1,0 +1,112 @@
+{
+  "finish_title": "Koniec quizu!",
+  "finish_text": "Niezależnie od wyniku, i tak jesteś dla mnie 10/10. 💗",
+  "questions": [
+    {
+      "q": "Gdzie się poznaliśmy?",
+      "options": ["Instagram", "TikTok", "Na uczelni"],
+      "answer": 1,
+      "correct": "TikTok. Najlepszy algorytm w historii.",
+      "wrong": "Prawie! Podpowiedź: był tam live."
+    },
+    {
+      "q": "Od kiedy jesteśmy razem?",
+      "options": ["29.08.2025", "29.09.2025", "29.07.2025"],
+      "answer": 0,
+      "correct": "Dokładnie. Ten dzień mam wyryty w pamięci."
+    },
+    {
+      "q": "Co robiłaś na live'ie, kiedy się poznaliśmy?",
+      "options": ["Gotowałaś", "Grałaś w Valoranta", "Śpiewałaś"],
+      "answer": 1,
+      "correct": "Valorant. I od razu mnie wygrałaś."
+    },
+    {
+      "q": "Jak ma na imię mój pies?",
+      "options": ["Fado", "Fido", "Fabio"],
+      "answer": 0,
+      "correct": "Fado! Czeka, aż go w końcu przytulisz."
+    },
+    {
+      "q": "A jak ma na imię Twój pies?",
+      "options": ["Hardy", "Hardin", "Hadrian"],
+      "answer": 1,
+      "correct": "Hardin. Pozdrów go ode mnie i od Fado."
+    },
+    {
+      "q": "Kto zrobił tę stronę?",
+      "options": ["Kacper", "Fado", "Hardin"],
+      "answer": 0,
+      "correct": "Kacper, z miłości do Ciebie.",
+      "wrong": "Fado i Hardin też by chcieli, ale nie mają kciuków."
+    },
+    {
+      "q": "Ile rund trzeba wygrać, żeby wygrać standardowy mecz w Valorancie?",
+      "options": ["10", "13", "15"],
+      "answer": 1,
+      "correct": "13. Pierwszy do trzynastu, jak w prawdziwym życiu z Tobą: zawsze wygrywam, bo mam Ciebie."
+    },
+    {
+      "q": "Którym agentem można wskrzesić kolegę z drużyny?",
+      "options": ["Jett", "Sage", "Phoenix"],
+      "answer": 1,
+      "correct": "Sage. Ty uleczyłaś moje serce bez żadnej ultki."
+    },
+    {
+      "q": "Jak nazywa się ładunek, który atakujący podkładają w Valorancie?",
+      "options": ["Spike", "Detonator", "Dynamit"],
+      "answer": 0,
+      "correct": "Spike! Ale to Ty podłożyłaś bombę w moim sercu. Pozytywną."
+    },
+    {
+      "q": "Która randka byłaby dla mnie idealna?",
+      "options": ["Gramy razem do rana", "Spacer z Fado i Hardinem", "Film pod kocem"],
+      "answer": null,
+      "replies": [
+        "Super pomysł. Ale jak mnie ograsz, to nie będę płakał. Prawie.",
+        "Dwa psy, dwie osoby, zero nudy. Biorę.",
+        "Koc, Ty, herbata. Nic więcej mi nie trzeba."
+      ]
+    },
+    {
+      "q": "Co zrobię jako pierwsze, kiedy Cię zobaczę?",
+      "options": ["Przytulę", "Pocałuję", "Nie puszczę"],
+      "answer": null,
+      "replies": [
+        "Przytulę mocno i długo. To obiecuję.",
+        "Buziaki są tylko ode mnie. I to bez limitu. 😘",
+        "Nie puszczę. I tak się z tym wcale nie kryję."
+      ]
+    },
+    {
+      "q": "Co czuję, kiedy do mnie piszesz?",
+      "options": ["Uśmiech", "Motylki", "Wszystko naraz"],
+      "answer": null,
+      "replies": [
+        "Uśmiech od ucha do ucha. Serio.",
+        "Motylki, które nie chcą stąd wylecieć.",
+        "Wszystko naraz. A najbardziej szczęście."
+      ]
+    },
+    {
+      "q": "Co by było, gdyby nie ten live?",
+      "options": ["Nie poznalibyśmy się", "Znalazłbym Cię i tak", "Nie chcę o tym myśleć"],
+      "answer": null,
+      "replies": [
+        "To byłby bardzo smutny świat. Dobrze, że było inaczej.",
+        "Znalazłbym Cię w każdym możliwym świecie. Obiecuję.",
+        "Ja też nie. Chodź tu, przytulę."
+      ]
+    },
+    {
+      "q": "Który pies jest lepszy: Fado czy Hardin?",
+      "options": ["Fado", "Hardin", "Oba"],
+      "answer": null,
+      "replies": [
+        "Ha! Wiedziałem, że tak powiesz. Hardin się obraża, ale jutro mu przejdzie.",
+        "Hardin zasłużył na tę odpowiedź. Fado udaje, że nie słyszał.",
+        "Dyplomatyczna odpowiedź. Oba są najlepsze, a ich właściciele jeszcze bardziej."
+      ]
+    }
+  ]
+}
