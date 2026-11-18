@@ -74,20 +74,49 @@ button:active{transform:scale(.97)}
 .sc input{flex:1;min-width:120px;border-radius:10px;border:1px solid #6b4a7d;background:#150b1c;color:var(--ink);padding:10px 12px;font:700 16px Nunito;text-transform:uppercase}
 .sc .res{flex-basis:100%;color:var(--gold);font-family:Fraunces,serif;font-style:italic}
 
-/* quiz */
-.q{margin-bottom:22px}
-.q h3{font-size:20px;margin-bottom:10px}
-.opts{display:grid;gap:8px}
-.opts button{background:#150b1c;color:var(--ink);border:1px solid #6b4a7d;text-align:left;font-weight:600}
-.opts button.right{background:#1f5a3c;border-color:var(--ok)}
-.opts button.wrong{background:#5a1f2c;border-color:var(--bad)}
-.q .ans{min-height:1.4em;margin-top:8px;color:var(--gold);font-style:italic;font-family:Fraunces,serif}
+/* quiz (quiz.json) */
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+(async()=>{
+  const box=$('#quiz');let data;
+  try{const res=await fetch('quiz.json',{cache:'no-cache'});if(!res.ok)throw 0;data=await res.json()}
+  catch(e){box.innerHTML='<p class="lead">Quiz się nie wczytał. Strona musi działać przez GitHub Pages albo lokalny serwer (np. <code>python -m http.server</code>), bo przeglądarka blokuje czytanie quiz.json z pliku.</p>';return}
+  const Q=data.questions||[];let i=0,score=0,scored=0;
+  function show(){
+    if(i>=Q.length){
+      box.innerHTML=`<h3 class="qq">${esc(data.finish_title||'Koniec!')}</h3><p class="lead">${scored?`Poprawne odpowiedzi: <b>${score}/${scored}</b>. `:''}${esc(data.finish_text||'')}</p><div class="row"><button id="again">Jeszcze raz</button></div>`;
+      $('#again').onclick=()=>{i=0;score=0;scored=0;show()};hearts(14);return}
+    const q=Q[i],graded=typeof q.answer==='number';let tried=false;
+    box.innerHTML=`<div class="prog">Pytanie ${i+1} z ${Q.length}</div><h3 class="qq">${esc(q.q)}</h3><div class="opts">${q.options.map((o,j)=>`<button data-o="${j}">${esc(o)}</button>`).join('')}</div><div class="ans" id="qa"></div><div class="row"><button id="nx" style="display:none">${i+1===Q.length?'Zobacz wynik':'Dalej'}</button></div>`;
+    const btns=[...box.querySelectorAll('.opts button')],ans=$('#qa');
+    $('#nx').onclick=()=>{i++;show()};
+    btns.forEach((b,j)=>b.onclick=()=>{
+      if(!graded){b.classList.add('right');ans.textContent=(q.replies&&q.replies[j])||'';btns.forEach(x=>x.disabled=true);$('#nx').style.display='';hearts(3);return}
+      if(j===q.answer){b.classList.add('right');if(!tried){score++}scored++;ans.textContent=q.correct||'Dokładnie!';btns.forEach(x=>x.disabled=true);$('#nx').style.display='';hearts(4)}
+      else{b.classList.add('wrong');b.disabled=true;tried=true;ans.textContent=q.wrong||'Prawie! Spróbuj jeszcze raz.'}
+    });
+  }
+  show();
+})();
 
 /* letter */
 .env{text-align:center}
 .letter{display:none;text-align:left;margin-top:18px;font:italic 400 20px/1.7 Fraunces,serif}
 .letter.open{display:block;animation:fade .8s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
+.qq{font-size:20px;margin:8px 0 14px}.prog{color:var(--mute);font-size:14px}
+main{position:relative;z-index:1}
+.side{position:fixed;top:0;bottom:0;width:clamp(26px,7vw,120px);pointer-events:none;overflow:hidden;z-index:0}
+.side.l{left:0}.side.r{right:0}
+.fl{position:absolute;bottom:-40px;opacity:0;animation:fl linear infinite}
+@keyframes fl{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.55}90%{opacity:.4}100%{transform:translateY(-110vh) translateX(14px);opacity:0}}
+.bh{position:absolute;top:50%;left:50%;width:70px;transform:translate(-50%,-50%);display:none;text-align:center}
+.bh svg.h{width:64px;filter:drop-shadow(0 0 14px #ff6f9a88);animation:beat 1.2s infinite;transform-origin:center}
+.bh svg.e{width:100%;margin-top:10px;opacity:.8}
+.bh polyline{stroke-dasharray:140;animation:ecg 1.2s linear infinite}
+@keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.2)}28%{transform:scale(1)}42%{transform:scale(1.13)}70%{transform:scale(1)}}
+@keyframes ecg{from{stroke-dashoffset:140}to{stroke-dashoffset:-140}}
+@media (min-width:1000px){.bh{display:block}}
+@media (prefers-reduced-motion:reduce){.fl{display:none}}
 footer{text-align:center;color:var(--mute);padding:40px 0 0}
 .heart{position:fixed;bottom:-30px;pointer-events:none;animation:up 3s ease-out forwards;font-size:22px}
 @keyframes up{to{transform:translateY(-70vh);opacity:0}}
@@ -95,6 +124,7 @@ footer{text-align:center;color:var(--mute);padding:40px 0 0}
 </style>
 </head>
 <body>
+<div class="side l" aria-hidden="true"><div class="bh"><svg class="h" viewBox="0 0 24 22"><path d="M12 21C5 15 1 11.6 1 7.2 1 4 3.5 1.5 6.6 1.5c2.2 0 4.1 1.2 5.4 3.2 1.3-2 3.2-3.2 5.4-3.2C20.5 1.5 23 4 23 7.2 23 11.600 19 15 12 21z" fill="#ff6f9a"/></svg><svg class="e" viewBox="0 0 100 60"><polyline points="0,30 22,30 30,30 36,8 44,52 52,20 58,30 100,30" fill="none" stroke="#ffd6a5" stroke-width="3" stroke-linejoin="round"/></svg></div></div><div class="side r" aria-hidden="true"><div class="bh"><svg class="h" viewBox="0 0 24 22"><path d="M12 21C5 15 1 11.6 1 7.2 1 4 3.5 1.5 6.6 1.5c2.2 0 4.1 1.2 5.4 3.2 1.3-2 3.2-3.2 5.4-3.2C20.5 1.5 23 4 23 7.2 23 11.600 19 15 12 21z" fill="#ff6f9a"/></svg><svg class="e" viewBox="0 0 100 60"><polyline points="0,30 22,30 30,30 36,8 44,52 52,20 58,30 100,30" fill="none" stroke="#ffd6a5" stroke-width="3" stroke-linejoin="round"/></svg></div></div>
 <main>
 
 <header class="hero">
@@ -103,16 +133,6 @@ footer{text-align:center;color:var(--mute);padding:40px 0 0}
   <p class="sub">Wszystko zaczęło się od jednego live’a. Ta strona jest tylko dla Ciebie.</p>
   <div class="clock" id="clock" aria-live="off"></div>
 </header>
-
-<section>
-  <h2>Nasza historia</h2>
-  <p class="lead">Najważniejsze rzeczy, które o nas wiem na pewno.</p>
-  <ul class="facts">
-    <li><strong>TikTok, live z Valoranta</strong><span>Tam Cię znalazłem. Najlepsze trafienie w całej mojej historii grania.</span></li>
-    <li><strong>29 sierpnia 2025</strong><span>Dzień, od którego jesteśmy razem. Licznik na górze już tego pilnuje.</span></li>
-    <li><strong>Fado i Hardin</strong><span>Mój pies i Twój pies. Dwa najważniejsze psie charaktery w tej opowieści, zaraz po nas.</span></li>
-  </ul>
-</section>
 
 <section id="cross">
   <h2>Krzyżówka dla Klaudii</h2>
@@ -160,6 +180,9 @@ const $=s=>document.querySelector(s);
 
 /* hearts */
 function hearts(n=8){for(let i=0;i<n;i++){const h=document.createElement('div');h.className='heart';h.textContent=['💗','💕','💖'][i%3];h.style.left=(10+Math.random()*80)+'vw';h.style.animationDelay=(Math.random()*.6)+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),3800)}}
+
+/* side floaters */
+document.querySelectorAll('.side').forEach(sd=>{for(let i=0;i<9;i++){const f=document.createElement('span');f.className='fl';f.textContent=['💗','💕','💖','💓'][i%4];f.style.left=(Math.random()*70)+'%';f.style.fontSize=(12+Math.random()*12)+'px';f.style.animationDuration=(8+Math.random()*8)+'s';f.style.animationDelay=(-Math.random()*14)+'s';sd.appendChild(f)}});
 
 /* clock since 29.08.2025 */
 const START=new Date(2025,7,29,0,0,0);
@@ -238,7 +261,7 @@ $('#clr').onclick=()=>{list.forEach(c=>{c.inp.value='';c.el.classList.remove('ok
 /* scramble */
 const S=[
  ['KOCHAM','MAKOHC','Powiem to jeszcze tysiąc razy. 💗'],
- ['BUZIAK','ZKUABI','Jeden od Fado, reszta ode mnie.'],
+ ['BUZIAK','ZKUABI','Ten jest tylko ode mnie. Wszystkie są. 😘'],
  ['RAZEM','ZMERA','Najlepsze słowo na świecie.'],
  ['PRZYTUL','LUTYRZP','Poproszę. Długo. Bez limitu czasu.']
 ];
